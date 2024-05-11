@@ -1,5 +1,5 @@
 import {ResizeMode, Video} from 'expo-av';
-import React, {ForwardedRef, forwardRef, useCallback, useEffect, useRef, useState} from 'react';
+import React, {ReactNode, useCallback, useEffect, useRef, useState} from 'react';
 import {ImageProps, ImageResizeMode, Platform, StyleSheet, View} from 'react-native';
 import {ReactVideoProps, VideoRef} from 'react-native-video';
 import {METRIC_HOST} from '../hooks/metric/contants';
@@ -22,6 +22,7 @@ export type ReactNativeKinescopeVideoProps = ReactVideoPropsOmit &
 		referer?: string;
 		drmAuthToken?: string;
 		poster: ImageProps['source'];
+		PosterComponent?: ReactNode;
 	};
 
 function ReactNativeKinescopeVideo(props: ReactNativeKinescopeVideoProps) {
@@ -35,6 +36,7 @@ function ReactNativeKinescopeVideo(props: ReactNativeKinescopeVideoProps) {
 		onManifestLoad,
 		onManifestError,
 		poster,
+		PosterComponent,
 	} = props;
 
 	const videoRef = useRef<VideoRef>();
@@ -97,6 +99,11 @@ function ReactNativeKinescopeVideo(props: ReactNativeKinescopeVideoProps) {
 			source={getSource()}
 			useNativeControls
 			posterSource={poster}
+			usePoster={true}
+			PosterComponent={() => {
+				if (PosterComponent) return <PosterComponent />;
+				return null;
+			}}
 			resizeMode={ResizeMode.CONTAIN}
 			isLooping
 		/>
