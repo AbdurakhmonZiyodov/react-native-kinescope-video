@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { ImageResizeMode, Platform, StyleSheet, View } from 'react-native';
+import { ImageResizeMode, Platform, View } from 'react-native';
 import {
   ReactVideoProps,
   VideoRef
@@ -105,7 +105,7 @@ function ReactNativeKinescopeVideo(
   return (
     <Video
       ref={handleRef}
-      style={[StyleSheet.absoluteFill, {height:400}]}
+      style={style}
       source={getSource()}
       useNativeControls
       resizeMode={ResizeMode.CONTAIN}
